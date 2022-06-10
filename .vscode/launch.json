@@ -11,7 +11,7 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": true,
-            "args":["S:\\Git-Repos\\COMP593-Lab2\\sales_data.csv"]
+            "args": ["S:\\Git-Repos\\COMP593-Lab2\\sales_data.csv"]
         }
     ]
 }
