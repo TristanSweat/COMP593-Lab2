@@ -70,9 +70,27 @@ def split_sales_into_orders(sales_data_csv, order_dir):
 
         #Save the order information to an Excel spreadsheet
         sheet_name = 'Order #' + str(order_id)
-        order_df.to_excel(order_file_path, index=False, sheet_name=sheet_name)
+        #order_df.to_excel(order_file_path, index=False, sheet_name=sheet_name)
 
-     
+        #Format spreadsheet to appropriate $ system and column width
+        writer = pd.ExcelWriter(os.path.join(order_dir, order_file_name), engine='xlsxwriter')
+        order_df.to_excel(writer, index=False, sheet_name = 'Order #' + str(order_id))  
+
+        workbook = writer.book
+        worksheet = writer.sheets[sheet_name]  
+
+        # Add a number format for cells with money.
+        money_fmt = workbook.add_format({'num_format': '$#,##0,##'})
+
+        # Monthly columns
+        worksheet.set_column('A:A', 11)
+        worksheet.set_column('B:B', 13)
+        worksheet.set_column('C:E', 15)
+        worksheet.set_column('F:G', 12, money_fmt)
+        worksheet.set_column('H:H', 10)
+        worksheet.set_column('I:I', 30)
+
+        writer.save()
 
 
 
